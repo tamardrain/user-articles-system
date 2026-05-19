@@ -18,15 +18,11 @@ export class UserProfile {
   router = inject(Router);
 route = inject(ActivatedRoute);
   selectedUser = this.userService.selectedUser;
- constructor() {
-  effect(() => {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+ngOnInit() {
+  const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    const user = this.userService.getUserById(id);
-
-    if (user) {
-      this.userService.setSelectedUser(user);
-    }
+  this.userService.getUserById(id).subscribe(user => {
+    this.userService.setSelectedUser(user);
   });
 }
 

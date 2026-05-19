@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { ArticlesService } from '../../services/articles.service';
 import { Article } from "../../components/articles/article";
 import { Router } from '@angular/router';
@@ -10,12 +10,15 @@ import { UsersService } from '../../services/users.service';
   templateUrl: './articles.html',
   styleUrl: './articles.less',
 })
-export class Articles {
+export class Articles implements OnInit {
 
   articlesService = inject(ArticlesService);
   userService = inject(UsersService);
   router = inject(Router);
 
+  ngOnInit(){
+  this.articlesService.loadArticles()
+  }
   userId = computed(() => this.userService.selectedUser()?.id);
 
   articles = computed(() => {

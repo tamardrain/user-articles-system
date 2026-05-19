@@ -1,12 +1,21 @@
-import { computed, Injectable, signal } from "@angular/core";
+import { computed, inject, Injectable, signal } from "@angular/core";
 import { ArticleObj } from "../modules/article.module";
-import { ARTICLES } from "../data/articles-fake-data";
+import { HttpClient } from "@angular/common/http";
 
 
 @Injectable({ providedIn: 'root' })
 
 export class ArticlesService {
-    articlesstate = signal<ArticleObj[]>(ARTICLES);
+   private http=inject(HttpClient)
+    articlesstate = signal<ArticleObj[]>([]);
+    //טעינת כל המאמרים מהשרת
+    loadArticles() {
+    this.http
+      .get<ArticleObj[]>('https://jsonplaceholder.typicode.com/posts')
+      .subscribe(data => {
+        this.articlesstate.set(data);
+      });
+  }
     //לקריאה בלבד מבחוץ
     articles = this.articlesstate.asReadonly();
 

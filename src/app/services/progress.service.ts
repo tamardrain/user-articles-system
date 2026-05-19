@@ -1,6 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { ArticleObj } from "../modules/article.module";
-import { ARTICLES } from "../data/articles-fake-data";
 import { ArticlesService } from "./articles.service";
 
 @Injectable({ providedIn: 'root' })

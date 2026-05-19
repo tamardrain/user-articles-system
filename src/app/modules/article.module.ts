@@ -2,6 +2,6 @@ export interface ArticleObj {
   id: number;
   userId: number;
   title: string;
-  summary: string;
+  body: string;
   isPublished: boolean;
 }
